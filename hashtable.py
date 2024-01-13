@@ -21,7 +21,7 @@ nested_dict = {'Employee' : {'Arun' :
 # print(my_dict.get('Ava'))
 
 # for x,y in my_dict.items():
-#     print(x, "----", y)
+    # print(x, "----", y)
 
 # UPDATION ##################################
 
@@ -34,7 +34,7 @@ my_dict['Jack'] = '004'
 
 my_dict.pop('Dave')
 # print(my_dict)
-# my_dict.popitem()
+my_dict.popitem()
 # print(my_dict)
 
 #CONVERT DICT TO DATAFRAME #################################
@@ -48,7 +48,7 @@ dataframe = pd.DataFrame(nested_dict['Employee'])
 # print()
 
 
-# stock_prices = {'6' : 340, '7' : 320, '8': 400, '9': 390, '10' : 310, '11': 297}
+stock_prices = {'6' : 340, '7' : 320, '8': 400, '9': 390, '10' : 310, '11': 297}
 # print(type(stock_prices))
 
 class HashTable:
@@ -81,7 +81,10 @@ class HashTable:
 
     def __delitem__(self, key):
        h = self.get_hash(key)
-       self.arr[h] = None
+       for index, element in enumerate(self.arr[h]):
+           if element[0] == key:
+               del self.arr[h][index]
+           
 
 t = HashTable()
 print(t.get_hash("march 6"))
@@ -112,5 +115,7 @@ print(t['march 6'])
 # print(t.get_hash('sgsdfgsdfg'))
 # print(t['dec 6'])
 # print(t['march 6'])
-# del t['march 6']
-# print(t.arr)
+del t['march 17']
+del t['march 6']
+print(t.arr)
+

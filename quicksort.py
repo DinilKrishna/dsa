@@ -58,8 +58,7 @@ def partition(arr, low, high):
         if right < left:
             done = True
         else:
-            arr[left], arr[right] = arr[right], arr[left]
-    
+            arr[left], arr[right] = arr[right], arr[left]    
     arr[low], arr[right] = arr[right], arr[low]
     return right
 
@@ -70,11 +69,8 @@ def quick_sort(arr, low, high):
         quick_sort(arr, pivot_index + 1, high)
 
 arr = [1, 34, 6, 8, 8, 23, 5, 89, 4, 2, 6]
-# quick_sort(arr, 0, len(arr) - 1)
 a = quicksort_desc(arr)
-# print(arr)
 print(a)
 names = ["dinil" , "saju", "arun", "anyanya", "rahul", "ashish"]
-
 b = quicksort_len(names)
 print(b)
