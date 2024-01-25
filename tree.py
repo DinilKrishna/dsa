@@ -5,12 +5,13 @@ class Tree:
         self.right = None
 
 
-root = Tree(1)
-root.left = Tree(2)
-root.right = Tree(3)
-root.left.left = Tree(4)
-root.left.right = Tree(5)
-root.right.left = Tree(6)
+root = Tree(4)
+root.left = Tree(3)
+root.right = Tree(5)
+root.left.left = Tree(2)
+root.left.left.left = Tree(1)
+root.left.left.right = Tree(2)
+root.right.right = Tree(6)
 
 def inorder_traversal(root):
     result = []
@@ -21,6 +22,7 @@ def inorder_traversal(root):
     return result
 
 tree = inorder_traversal(root)
+print(tree)
 
 def height(root):
     if root is None:
@@ -53,7 +55,7 @@ def preorder_traversal(root):
         result += preorder_traversal(root.right)
     return result
 
-# print(preorder_traversal(root))
+print(preorder_traversal(root))
 
 def postorder_traversal(root):
     result = []
@@ -64,3 +66,35 @@ def postorder_traversal(root):
     return result
 
 print(postorder_traversal(root))
+
+def bfs(root):
+    if root is None:
+        return
+
+    queue = [root]
+    while queue:
+        current = queue.pop(0)
+        print(current.key, end=" ")
+
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+
+bfs(root)
+
+def dfs(root):
+    if root is None:
+        return
+
+    stack = [root]
+    while stack:
+        current = stack.pop()
+        print(current.key, end=" ")
+
+        if current.right:
+            stack.append(current.right)
+        if current.left:
+            stack.append(current.left)
+
+dfs(root)
