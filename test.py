@@ -1,31 +1,40 @@
-class Node:
-    def __init__(self, key):
-        self.key = key 
-        self.left = None
-        self.right = None
+import heapq
+
+class Min_heap:
+    def __init__(self):
+        self.heap = []
+
+    def build_heap(self, arr):
+        self.heap = arr[:]
+        heapq.heapify(self.heap)
+
+    def insert(self, value):
+        heapq.heappush(self.heap, value)
     
-def insert(root, key):
-    if root is None:
-        return Node(key)
-    else:
-        if key < root.key:
-            root.left = insert(root.left, key)
-        else:
-            root.right = insert(root.right, key)
-    return root
-
-def search(root, key):
-    if root is None or root.key == key:
-        return root
-    if key < root.key:
-        return search(root.left, key)
-    return search(root.right, key)
+    def remove_min(self):
+        if self:
+            return heapq.heappop(self.heap)
+        return None
     
-root = None
-arr = [4,2,7,8,2,5,8,3,5,1,0,9,6]
+    def search(self, val):
+        return val in self.heap
+    
+    def print_heap(self):
+        print("Heap: ", self.heap)
 
-for key in arr:
-    root = print(insert(root, key))
+    def heap_sort(self):
+        sorted_element = []
+        while self.heap:
+            sorted_element.append(self.remove_min())
+        return sorted_element
+    
 
-# a = search(4, 9)
-# print(a)
+arr = [1,5,8,3,1,6,8]
+heap = Min_heap()
+heap.build_heap(arr)
+heap.print_heap()
+# heap.insert(2)
+heap.print_heap()
+print(heap.search(3))
+
+print(heap.heap_sort())

@@ -125,8 +125,13 @@ keys = [15, 10, 20, 8, 12, 17, 25]
 
 for key in keys:
     root = insert(root, key)
+
 print("\nBFS traversal:")
 bfs(root)
+
+print("\nDFS traversal:")
+dfs(root)
+
 print("In-order traversal:")
 inorder_traversal(root)
 print("\nSearch for 12:")
@@ -159,5 +164,3 @@ print(is_valid_binary_tree(root))
 
 
 
-print("\nDFS traversal:")
-dfs(root)
