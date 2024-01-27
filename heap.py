@@ -1,86 +1,86 @@
-import heapq
-
-class MinHeap:
+class Heap:
     def __init__(self):
         self.heap = []
 
     def build_heap(self, arr):
         self.heap = arr[:]
-        heapq.heapify(self.heap)
+        n = len(self.heap)
+        for i in range(n // 2 - 1, -1, -1):
+            self.heapify_down(i)
 
     def insert(self, value):
-        heapq.heappush(self.heap, value)
+        self.heap.append(value)
+        self.heapify_up(len(self.heap) - 1)
 
-    def remove_min(self):
-        if self:
-            return heapq.heappop(self.heap)
+    def remove(self, value):
+        idx = self.search(value)
+        if idx is not None:
+            self.heap[idx], self.heap[-1] = self.heap[-1], self.heap[idx]
+            removed_value = self.heap.pop()
+            self.heapify_down(idx)
+            return removed_value
         return None
 
     def search(self, value):
-        return value in self.heap
+        for i, element in enumerate(self.heap):
+            if element == value:
+                return i
+        return None
+
+    def heapify_up(self, i):
+        while i > 0:
+            parent = (i - 1) // 2
+            if self.heap[i] > self.heap[parent]:
+                self.heap[i], self.heap[parent] = self.heap[parent], self.heap[i]
+                i = parent
+            else:
+                break
+
+    def heapify_down(self, i):
+        n = len(self.heap)
+        while i < n:
+            left_child = 2 * i + 1
+            right_child = 2 * i + 2
+            largest = i
+
+            if left_child < n and self.heap[left_child] > self.heap[largest]:
+                largest = left_child
+            if right_child < n and self.heap[right_child] > self.heap[largest]:
+                largest = right_child
+
+            if largest != i:
+                self.heap[i], self.heap[largest] = self.heap[largest], self.heap[i]
+                i = largest
+            else:
+                break
 
     def print_heap(self):
         print("Heap:", self.heap)
 
     def heap_sort(self):
-        sorted_elements = []
+        sorted_arr = []
         while self.heap:
-            sorted_elements.append(self.remove_min())
-        return sorted_elements
+            self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+            sorted_arr.append(self.heap.pop())
+            self.heapify_down(0)
 
-def bfs(heap):
-    if heap:
-        queue = [0]  # Index of the root element
-        while queue:
-            current_index = queue.pop(0)
-            print(heap.heap[current_index], end=" ")
+        return sorted_arr
 
-            left_child = 2 * current_index + 1
-            right_child = 2 * current_index + 2
 
-            if left_child < len(heap.heap):
-                queue.append(left_child)
-            if right_child < len(heap.heap):
-                queue.append(right_child)
-
-def dfs(heap):
-    def dfs_recursive(index):
-        if index < len(heap.heap):
-            print(heap.heap[index], end=" ")
-            dfs_recursive(2 * index + 1)
-            dfs_recursive(2 * index + 2)
-
-    if not heap.is_empty():
-        dfs_recursive(0)
-
-# Example Usage:
-min_heap = MinHeap()
-
-# Build heap
+# Example usage:
+heap = Heap()
 arr = [4, 2, 7, 8, 2, 5, 8, 3, 5, 1, 0, 9, 6]
-min_heap.build_heap(arr)
+heap.build_heap(arr)
 
-# Insert into heap
-min_heap.insert(10)
+heap.print_heap()
 
-# Remove element from heap
-min_heap.remove_min()
+heap.insert(10)
+heap.print_heap()
 
-# Search
-print("Is 5 in the heap?", min_heap.search(5))
+heap.remove(5)
+heap.print_heap()
 
-# Print heap
-min_heap.print_heap()
+print("Search for 7:", heap.search(7))
 
-# Heap sort
-sorted_elements = min_heap.heap_sort()
-print("Sorted elements:", sorted_elements)
-
-# # BFS
-# print("BFS traversal:")
-# bfs(min_heap)
-# print()
-
-# # DFS
-# print("DFS traversal:")
-# dfs(min_heap)
+sorted_arr = heap.heap_sort()
+print("Heap after heap sort:", sorted_arr)
