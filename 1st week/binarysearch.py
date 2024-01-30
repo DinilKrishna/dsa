@@ -1,4 +1,3 @@
-
 def binary_search(arr, target):
     arr.sort()
     high = len(arr) - 1
