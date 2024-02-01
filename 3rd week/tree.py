@@ -74,7 +74,7 @@ def bfs(root):
     queue = [root]
     while queue:
         current = queue.pop(0)
-        print(current.key, end=" ")
+        print(current, end=" ")
 
         if current.left:
             queue.append(current.left)
@@ -90,7 +90,7 @@ def dfs(root):
     stack = [root]
     while stack:
         current = stack.pop()
-        print(current.key, end=" ")
+        print(current, end=" ")
 
         if current.right:
             stack.append(current.right)

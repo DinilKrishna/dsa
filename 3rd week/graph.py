@@ -54,7 +54,7 @@ class Graph:
         queue = [v]
         while queue:
             current = queue.pop(0)
-            if not current in visited:
+            if current not in visited:
                 print(current, end = " ")
                 visited.add(current)
                 for i in self.graph[current]:

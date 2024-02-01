@@ -10,12 +10,18 @@ class Node:
 def insert(root, key):
     if root is None:
         return Node(key)
-    else:
-        if key < root.key:
-            root.left = insert(root.left, key)
+    current = root
+    while current:
+        if key < current.key:
+            if current.left is None:
+                current.left = Node(key)
+                return root  
+            current = current.left
         else:
-            root.right = insert(root.right, key)
-    return root
+            if current.right is None:
+                current.right = Node(key)
+                return root  
+            current = current.right
 
 def search(root, key):
     if root is None or root.key == key:
@@ -112,19 +118,21 @@ def dfs(root):
         current = stack.pop()
         print(current.key, end=" ")
 
-        # Visit left child first, then right child
         if current.right:
             stack.append(current.right)
         if current.left:
             stack.append(current.left)
+            
 
 
 
 root = None
-keys = [15, 10, 20, 8, 12, 17, 25]
+keys = [9,6,8,4,3,1,5,0,2,7]
 
 for key in keys:
     root = insert(root, key)
+
+preorder_traversal(root)
 
 print("\nBFS traversal:")
 bfs(root)
@@ -156,8 +164,8 @@ print("\nRemoving node with key 15:")
 root = remove_node(root, 15)
 inorder_traversal(root)
 
-print("\nClosest value to 13:")
-print(closest(root, 13))
+print("\nClosest value to 9:")
+print(closest(root, 9))
 
 print("\nIs a valid binary tree?")
 print(is_valid_binary_tree(root))

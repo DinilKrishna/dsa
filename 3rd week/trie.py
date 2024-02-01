@@ -61,7 +61,7 @@ words = ["apple", "app", "application", "banana", "bat"]
 for word in words:
     trie.insert(word)
 
-print("Search 'app':", trie.search("app"))  # Output: True
+print("Search 'app':", trie.search("appl"))  # Output: True
 print("Search 'apples':", trie.search("apples"))  # Output: False
 
 print("Starts with 'ban':", trie.starts_with("ban"))  # Output: True
