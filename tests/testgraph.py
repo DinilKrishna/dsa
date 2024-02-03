@@ -86,4 +86,3 @@ graph.dfs('A')
 print()
 graph.remove_vertex('D')
 graph.print_graph()
-
