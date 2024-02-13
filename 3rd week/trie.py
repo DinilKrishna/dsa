@@ -54,6 +54,36 @@ class Trie:
             return len(node.children) == 0
 
         return False
+    
+    def search_prefix(self, prefix):
+        current = self.root
+        for char in prefix:
+            if char not in current.children:
+                return []  # Prefix not found, return an empty list
+            current = current.children[char]
+
+        words = []
+        self._collect_words(current, prefix, words)
+        return words
+
+    def _collect_words(self, node, current_word, words):
+        if node.is_end_of_word:
+            words.append(current_word)
+
+        for char, child in node.children.items():
+            self._collect_words(child, current_word + char, words)
+    
+    def suf_insert(self, word):
+        if word is None or len(word) == 0:
+            return
+        current = self.root
+        for w in word:
+            if w in current.children:
+                current = current.children[w]
+            else:
+                current.children[w] = TrieNode()
+        current.end_of_word = True
+        self.suf_insert(word[1:])
 
 # Example Usage:
 trie = Trie()
